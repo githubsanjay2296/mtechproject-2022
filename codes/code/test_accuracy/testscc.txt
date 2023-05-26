@@ -1,0 +1,10 @@
+
+acc=0;
+accuracy_lst=[];
+labels = tblTest(:, 33);
+labels = table2array(labels);
+
+predictions = SubspaceKNN.predictFcn(tblTest);
+
+accuracy_lst = horzcat(accuracy_lst, numel(find(predictions==labels))/length(labels));
+acc = acc + numel(find(predictions==labels))/length(labels);

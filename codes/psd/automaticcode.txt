@@ -1,0 +1,14 @@
+files=dir('*.mat');
+length(files);
+for i=1:length(files)
+A=importdata(files(i).name);
+data=A';
+Fs=128;
+for ii=1:32
+   s=data(:, ii);
+   [Pxx,F] = periodogram(s,rectwin(length(s)),length(s),Fs);
+   alpha_bandpower(ii) = bandpower(Pxx,F,[8 13],'psd');
+   beta_bandpower(ii)=bandpower(Pxx,F,[12.5 30],'psd');
+end
+ stdData(i,:)=alpha_bandpower;
+end

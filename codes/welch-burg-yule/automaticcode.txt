@@ -1,0 +1,37 @@
+	%welch method
+files=dir('*.mat');
+length(files);
+segmentLength = 100;
+p=[];
+for i=1:length(files)
+A=importdata(files(i).name);
+data=A';
+for ii=1:32
+   s=data(:, ii);
+    nfft= length(s);
+    [pxx,F] = pwelch(s,segmentLength,[],nfft);
+    p(ii) = bandpower(pxx,F,'psd');
+end
+ stdData(i,:)=p;
+end
+
+	%burg method and yuler%
+
+files=dir('*.mat');
+length(files);
+p=[];
+q=[];
+for i=1:length(files)
+A=importdata(files(i).name);
+data=A';
+for ii=1:32
+   s=data(:,ii);
+    nfft=length(s);
+    [pxx,F]=pyulear(s,12,[12.5 30]);
+    [Pxx,F]=pburg(s,12,[12.5 30]);
+    p(ii)= bandpower(pxx, F, 'psd');
+    q(ii)=bandpower(Pxx, F, 'psd');
+end
+ yuler_power(i,:)=p;
+ burg_power(i, :)=q;
+end

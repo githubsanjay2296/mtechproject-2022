@@ -1,0 +1,33 @@
+% bandpower using welch method
+load preictal50.mat
+s=preictal;
+segmentLength = 100;
+nfft = 640;
+[pxx,F] = pwelch(s,segmentLength,[],nfft);
+
+plot(10*log10(pxx))
+xlabel('rad/sample')
+ylabel('dB / (rad/sample)')
+p = bandpower(pxx,F,'psd')
+
+% bandpower using burg method
+
+load preictal50.mat
+s=preictal;
+
+
+[Pxx,F] = pburg(s,4,1024,1);
+plot(10*log10(pxx))
+xlabel('rad/sample')
+ylabel('dB / (rad/sample)')
+p = bandpower(Pxx,F,'psd')
+
+%bandpower from  PSD  Estimate of the signal using the Yule-Walker method with a 12th-order autoregressive model. Use the default DFT length. Plot the estimate.
+
+Fs = 1000;
+load preictal50.mat
+s=preictal;
+morder = 12;
+
+[Pxx,F]=pyulear(s,morder,[],Fs)
+p = bandpower(Pxx,F,'psd')

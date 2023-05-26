@@ -1,0 +1,20 @@
+rng default
+Fs = 1000;
+load preictal50.mat
+s=preictal;
+N = length(s)
+xdft = fft(s);
+xdft = xdft(1:N/2+1);
+psdx = (1/(Fs*N)) * abs(xdft).^2;
+psdx(2:end-1) = 2*psdx(2:end-1);
+freq = 0:Fs/length(s):Fs/2;
+
+plot(freq,10*log10(psdx))
+grid on
+title('Periodogram Using FFT')
+xlabel('Frequency (Hz)')
+ylabel('Power/Frequency (dB/Hz)')
+[Pxx,F]= periodogram(s,rectwin(length(s)),length(s),Fs)
+RMS_f = sqrt(sum(abs(xdft/length(xdft)).^2));
+RMS_f
+p = bandpower(Pxx,F,'psd')

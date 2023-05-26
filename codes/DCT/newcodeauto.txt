@@ -1,0 +1,9 @@
+files=dir('*.mat');
+length(files);
+for ii=1:length(files)
+    A=importdata(files(ii).name);
+    B=A';
+    K=dct(B);
+    L= std(K)
+   stdData(ii,:)=L;
+end

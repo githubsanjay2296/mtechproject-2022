@@ -1,0 +1,19 @@
+close all;
+clear;
+clc;
+
+files = dir('*.mat');
+stressed = 52;
+non_stressed = 52;
+
+for ii=1:length(files)
+    data = importdata(files(ii).name);
+    labels = horzcat(ones(stressed, 1)', zeros(non_stressed, 1)')';
+    
+    data = horzcat(data, labels);
+    
+    save(files(ii).name, 'data');
+end
+
+
+%input file should be matfile containing stress and non-stress feature with no classifiaction lebel (X32)

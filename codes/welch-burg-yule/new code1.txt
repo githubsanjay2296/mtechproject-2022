@@ -1,0 +1,12 @@
+data=Clean_data';
+segmentLength=100;
+p=[];
+q=[];
+for ii=1:32
+    s=data(:,ii);
+    nfft=length(s);
+    [pxx,F]=pyulear(s,12,[12.5 30]);
+    [Pxx,F]=pburg(s,12,[12.5 30]);
+    p(ii)= bandpower(pxx, F, 'psd');
+    q(ii)=bandpower(Pxx, F, 'psd');
+end

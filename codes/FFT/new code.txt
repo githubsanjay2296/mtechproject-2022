@@ -1,0 +1,23 @@
+%root mean square
+data=Clean_data';
+RMS_f=[];
+for ii=1:32
+    s=data(:, ii);
+    n = length(s);
+    xdft = fft(s);
+    RMS_f(ii)= sqrt(sum(abs(xdft/length(xdft)).^2));
+end
+
+%average power
+data=Clean_data';
+average_power=[];
+for ii=1:32
+    s=data(:, ii);
+    N = length(s);
+    xdft = fft(s);
+    xxdft = xdft(1:N/2)
+    xxdft(2:end)=2*xxdft(2:end);
+    abxdft=abs(xxdft);
+    dspbxa=abxdft.^2/N
+    average_power(ii) = sum(dspbxa)/N;
+end

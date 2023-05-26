@@ -1,0 +1,13 @@
+close all;
+clear;
+clc;
+
+data = importdata('dwt_feature.mat');
+
+tbl = array2table(data);
+%partition = cvpartition(data,'Holdout',0.15);
+partition = cvpartition(length(data),'Holdout',0.15);
+%partition = cvpartition(length(data),'Holdout',0.15);
+idxTrain = training(partition); % Indices for the training set
+tblTrain = tbl(idxTrain,:);
+tblTest = tbl(~idxTrain,:);

@@ -1,0 +1,5 @@
+AP = importdata('psdd1.mat');
+for ii=1:length(AP)
+    meanDelta(ii, :) = mean(AP(ii, :));
+    
+end

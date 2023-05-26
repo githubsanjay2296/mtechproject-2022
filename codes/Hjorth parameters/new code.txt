@@ -1,0 +1,12 @@
+data=Clean_data';
+s=data(:, 1);
+n = length(s);
+dxV = diff([0;s]);
+ddxV = diff([0;dxV]);
+mx2 = mean(s.^2);
+mdx2 = mean(dxV.^2);
+mddx2 = mean(ddxV.^2);
+
+mob = mdx2 / mx2;
+complexity = sqrt(mddx2 / mdx2 - mob);
+mobility = sqrt(mob);

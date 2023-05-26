@@ -1,0 +1,35 @@
+%RMS
+files=dir('*.mat');
+length(files);
+for i=1:length(files)
+A=importdata(files(i).name);
+data=A';
+RMS_f=[];
+for ii=1:32
+    s=data(:, ii);
+    n = length(s);
+    xdft = fft(s);
+    RMS_f(ii)= sqrt(sum(abs(xdft/length(xdft)).^2));
+end
+ stdData(i,:)=RMS_f;
+end
+
+%average_power
+files=dir('*.mat');
+length(files);
+for i=1:length(files)
+A=importdata(files(i).name);
+data=A';
+average_power=[];
+for ii=1:32
+     s=data(:, ii);
+    N = length(s);
+    xdft = fft(s);
+    xxdft = xdft(1:N/2)
+    xxdft(2:end)=2*xxdft(2:end);
+    abxdft=abs(xxdft);
+    dspbxa=abxdft.^2/N
+    average_power(ii) = sum(dspbxa)/N;
+end
+ stdData(i,:)= average_power;
+end

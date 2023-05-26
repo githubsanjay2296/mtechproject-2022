@@ -1,0 +1,9 @@
+load('Arithmetic_sub_1_trial1.mat')
+data=Clean_data';
+Fs=100;
+for ii=1:32
+s=data(:, ii);
+[Pxx,F] = periodogram(s,rectwin(length(s)),length(s),Fs);
+ alpha_bandpower(ii) = bandpower(Pxx,F,[8 13],'psd');
+ beta_bandpower(ii)=bandpower(Pxx,F,[12.5 30],'psd');
+end

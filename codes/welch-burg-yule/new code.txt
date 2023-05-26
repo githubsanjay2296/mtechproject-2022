@@ -1,0 +1,32 @@
+%welch method
+data=Clean_data';
+segmentLength = 100;
+p=[];
+for ii=1:32
+    s=data(:, ii);
+    nfft= length(s);
+    [pxx,F] = pwelch(s,segmentLength,[],nfft);
+    p(ii) = bandpower(pxx,F,'psd');
+end
+%burg method
+
+data=Clean_data';
+segmentLength = 100;
+p=[];
+for ii=1:32
+    s=data(:, ii);
+    nfft= length(s);
+    [pxx,F] = pburg(s,4,nfft);
+    p(ii) = bandpower(pxx,F,'psd');
+end
+
+%yule method
+data=Clean_data';
+bp=[];
+Fs = 128;
+morder = 12;
+for ii=1:32
+    s=data(:, ii);
+   [pxx,F]=pyulear(s,morder,[],Fs);
+   bp(ii) = bandpower(pxx,F,'psd');
+end

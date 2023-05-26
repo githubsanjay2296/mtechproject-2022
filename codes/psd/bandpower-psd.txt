@@ -1,0 +1,15 @@
+
+%Determine the average power by first computing a PSD estimate using the periodogram. Input the PSD estimate to bandpower.
+
+Create a signal consisting of a 100 Hz sine wave in additive N(0,1) white Gaussian noise. The sampling frequency is 1 kHz. 
+Obtain the periodogram and use the 'psd' flag to compute the average power using the PSD estimate. 
+Compare the result against the average power computed in the time domain.
+
+
+code.......
+
+Fs = 1000;
+load preictal50.mat
+s=preictal;
+[Pxx,F] = periodogram(s,rectwin(length(s)),length(s),Fs);
+p = bandpower(Pxx,F,'psd')
